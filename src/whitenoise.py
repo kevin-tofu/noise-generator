@@ -5,14 +5,10 @@ import scipy.fftpack as fft
 
 def get_whitenoise(
     sampling_rate: int = 44100,
-    duration_sec: int = 6010
+    duration_sec: int = 600
 ):
-    
 
-    sampling_rate = 44100
-    duration_sec = 60 * 10
     num_samples = int(sampling_rate*duration_sec)
-
     random_phase = np.exp(
         1j* np.random.uniform(0, 2*np.pi, num_samples)
     )
