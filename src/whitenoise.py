@@ -13,7 +13,7 @@ def get_whitenoise(
         1j* np.random.uniform(0, 2*np.pi, num_samples)
     )
     # white_noise = fft.ifft(spectrum)
-    white_noise = np.abs(
+    white_noise = np.real(
         fft.ifft(random_phase)
     )
 
@@ -33,6 +33,20 @@ def get_whitenoise(
 #     )
 
 
+def visualize_noise(
+    data: np.ndarray,
+    export_path: str
+):
+    import matplotlib
+    from matplotlib import pyplot as plt
+    plt.figure(1, figsize=(6.4, 3))
+    plt.subplot(1, 1, 1)
+    # plt.imshow(I1)
+    plt.plot(data)
+    # plt.axis('off')
+    # plt.title('Image 1')
+    plt.savefig(export_path)
+
 def main(
     args: argparse.Namespace
 ):
@@ -48,7 +62,13 @@ def main(
         whitenoise,
         args.export_path
     )
+
+    visualize_noise(
+        whitenoise,
+        'noise.png'
+    )
     
+
 
 if __name__ == '__main__':
 
@@ -59,7 +79,7 @@ if __name__ == '__main__':
         '--sampling_rate', '-P1', type=int, default=44100, help=''
     )
     parser.add_argument(
-        '--duration_sec', '-P2', type=int, default=600, help=''
+        '--duration_sec', '-P2', type=int, default=10, help=''
     )
     parser.add_argument(
         '--export_path', '-EP', type=str, default='./whitenoise.mp3', help='path for image2'
